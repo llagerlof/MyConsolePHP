@@ -58,7 +58,7 @@ if (isset($_POST['code'])) {
 		<div id="output">
 			<textarea id="console"></textarea>
 		</div>
-	<div>
+	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/mode-php.js" type="text/javascript" charset="utf-8"></script>
