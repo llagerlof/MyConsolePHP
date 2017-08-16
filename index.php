@@ -2,7 +2,7 @@
 if (isset($_POST['code'])) {
 	if (file_exists('MyLogPHP.class.php')) include 'MyLogPHP.class.php'; // https://github.com/llagerlof/MyLogPHP
 	$code = trim($_POST['code']);
-	if (class_exists('MyLogPHP')) MyLogPHP::out($code, '$code');
+	if (class_exists('MyLogPHP')) MyLogPHP::out($_POST['code'], '$_POST["code"]');
 	$has_start_php_tag = strtolower(substr($code, 0, 5)) == '<?php';
 	$has_end_php_tag = substr($code, -2) == '?>';
 	if ($has_start_php_tag) {
