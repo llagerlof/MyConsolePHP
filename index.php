@@ -73,7 +73,6 @@ if (isset($_POST['code'])) {
 					var code = editor.getValue();
 					$.ajax({
 						type: 'POST',
-						url: 'index.php',
 						data: {code: code},
 						dataType: 'text',
 						cache: false,
