@@ -2,7 +2,7 @@
 ini_set('html_errors', false);
 session_start();
 if (file_exists('MyLogPHP.class.php')) require_once 'MyLogPHP.class.php'; // https://github.com/llagerlof/MyLogPHP
-if (!empty($_POST['code'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$_SESSION['code'] = $_POST['code'];
 	$code = trim($_POST['code']);
 	if (class_exists('MyLogPHP')) MyLogPHP::out($_POST['code'], '$_POST["code"]');
@@ -59,7 +59,7 @@ if (!empty($_POST['code'])) {
 	<div id="container">
 		<div id="code"><?php echo htmlentities(@$_SESSION['code']); ?></div>
 		<div id="output">
-			<textarea id="console"><?php echo @$_SESSION['output']; ?></textarea>
+			<textarea id="console"><?php echo htmlentities(@$_SESSION['output']); ?></textarea>
 		</div>
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
@@ -75,23 +75,19 @@ if (!empty($_POST['code'])) {
 			$('body').keydown(function (e) {
 				if (e.ctrlKey && e.keyCode == 13) {
 					var code = editor.getValue();
-					if (code.trim() != "") {
-						$.ajax({
-							type: 'POST',
-							data: {code: code},
-							dataType: 'text',
-							cache: false,
-							success: function (result) {
-								$('#console').val(result);
-							},
-							error: function (error) {
-								console.log (error.responseText);
-								alert(error.responseText);
-							}
-						});
-					} else {
-						$('#console').val("");
-					}
+					$.ajax({
+						type: 'POST',
+						data: {code: code},
+						dataType: 'text',
+						cache: false,
+						success: function (result) {
+							$('#console').val(result);
+						},
+						error: function (error) {
+							console.log (error.responseText);
+							alert(error.responseText);
+						}
+					});
 				}
 			});
 		});
