@@ -49,7 +49,6 @@ if (isset($_POST['code'])) {
 			color: white;
 			border: none;
 		}
-
 	</style>
 </head>
 <body>
@@ -66,6 +65,7 @@ if (isset($_POST['code'])) {
 		var editor = ace.edit("code");
 		//editor.setTheme("ace/theme/monokai");
 		editor.getSession().setMode({path:"ace/mode/php", inline:true});
+		editor.getSession().setOptions({tabSize: 4, useSoftTabs: false });
 		editor.focus();
 		$(document).ready(function() {
 			$('body').keydown(function (e) {
