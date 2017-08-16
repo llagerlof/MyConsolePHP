@@ -1,6 +1,9 @@
 <?php
-if (isset($_POST['code'])) {
-	if (file_exists('MyLogPHP.class.php')) include 'MyLogPHP.class.php'; // https://github.com/llagerlof/MyLogPHP
+ini_set('html_errors', false);
+session_start();
+if (file_exists('MyLogPHP.class.php')) require_once 'MyLogPHP.class.php'; // https://github.com/llagerlof/MyLogPHP
+if (!empty($_POST['code'])) {
+	$_SESSION['code'] = $_POST['code'];
 	$code = trim($_POST['code']);
 	if (class_exists('MyLogPHP')) MyLogPHP::out($_POST['code'], '$_POST["code"]');
 	$has_start_php_tag = strtolower(substr($code, 0, 5)) == '<?php';
@@ -14,6 +17,7 @@ if (isset($_POST['code'])) {
 	ob_start();
 	eval($code);
 	$result = ob_get_clean();
+	$_SESSION['output'] = $result;
 	die($result);
 }
 ?>
@@ -53,9 +57,9 @@ if (isset($_POST['code'])) {
 </head>
 <body>
 	<div id="container">
-		<div id="code"></div>
+		<div id="code"><?php echo htmlentities(@$_SESSION['code']); ?></div>
 		<div id="output">
-			<textarea id="console"></textarea>
+			<textarea id="console"><?php echo @$_SESSION['output']; ?></textarea>
 		</div>
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
@@ -71,19 +75,23 @@ if (isset($_POST['code'])) {
 			$('body').keydown(function (e) {
 				if (e.ctrlKey && e.keyCode == 13) {
 					var code = editor.getValue();
-					$.ajax({
-						type: 'POST',
-						data: {code: code},
-						dataType: 'text',
-						cache: false,
-						success: function (result) {
-							$('#console').val(result);
-						},
-						error: function (error) {
-							console.log (error.responseText);
-							alert(error.responseText);
-						}
-					});
+					if (code.trim() != "") {
+						$.ajax({
+							type: 'POST',
+							data: {code: code},
+							dataType: 'text',
+							cache: false,
+							success: function (result) {
+								$('#console').val(result);
+							},
+							error: function (error) {
+								console.log (error.responseText);
+								alert(error.responseText);
+							}
+						});
+					} else {
+						$('#console').val("");
+					}
 				}
 			});
 		});
