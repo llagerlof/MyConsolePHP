@@ -1,5 +1,5 @@
 # MyConsolePHP
-**MyConsolePHP** is a PHP fiddle-like web tool to simulate running a PHP script in terminal, but in your browser. To do this, the output is sent to a textarea to avoid browser parsing (without using css), all within a single script.
+**MyConsolePHP** is a PHP fiddle-like web tool to simulate running a PHP script in terminal, but in your browser, all within a single script.
 
 ![](http://i.imgur.com/Ffw0WIo.png)
 
@@ -16,4 +16,4 @@
   - Write your code in the left panel (the \<?php and ?\> tags are optional).
   - CTRL + ENTER anywhere to execute it.
   - All output are sent to the right panel.
-  - The result panel is editable too, if you want to make annotations.
+  - The result panel is editable too (if you want to make annotations and copy it to somewhere else).
