@@ -17,3 +17,4 @@
   - CTRL + ENTER anywhere to execute it.
   - All output are sent to the right panel.
   - The result panel is editable too (if you want to make annotations and copy it to somewhere else).
+  - The last executed script is saved in the session, so you won't lose the code after a browser restart.
